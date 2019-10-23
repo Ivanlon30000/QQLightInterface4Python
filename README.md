@@ -3,7 +3,7 @@
 
 ### 简介 Introduction
 自己在用QQLight机器人的时候, 调用[Mahua](http://www.newbe.pro/2019/01/25/Newbe.Mahua/Start-With-Mahua-In-V2.0/)的HTTP接口, 
-每次都要自己写一长串形如以下的代码, 就很是不爽, 于是决定自己写一个接口用.  
+每次都要自己写一长串形如以下的代码, 就很是不爽, 于是决定自己封装一个函数用.  
 ```python
 import urllib3
 import json
