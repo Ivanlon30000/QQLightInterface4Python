@@ -21,7 +21,7 @@ class TimedSendMsg():
         self.kwargs = kwargs
         self.cycles = 0
         self.max_cycles = max_cycles
-        self.multi_cool = kwargs.get('multi_cool', 0.8)
+        self.multi_cool = kwargs.get('multi_cool', SEND_MESSAGE_INTERVAL)
 
     def get_msg(self) -> dict:
         """
