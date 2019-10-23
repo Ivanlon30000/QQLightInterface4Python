@@ -7,6 +7,7 @@ import random
 from exmple.timed_send import TimedSendMsg
 from util import *
 
+
 class TimedSendKaguya(TimedSendMsg):
     def get_msg(self) -> dict:
         IMG_DIR = self.kwargs['dir']

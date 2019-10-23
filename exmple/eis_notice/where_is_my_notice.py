@@ -7,6 +7,7 @@ from pickle import load, dump
 
 from bs4 import BeautifulSoup
 from requests import get
+from urllib3.exceptions import ProxyError, ConnectionError
 
 from exmple.timed_send import TimedSendMsg
 from util import NetworkError, msgout
@@ -46,7 +47,6 @@ class WhereIsMyNotice:
         text = res.text
         if res.status_code != 200 or text == '':
             raise NetworkError()
-
         soup = BeautifulSoup(text, 'lxml')
         return soup
 
@@ -122,7 +122,7 @@ class WhereIsMyNotice:
         msgout('检查学院官网...')
         try:
             soup = self.__get_html()
-        except NetworkError as e:
+        except (NetworkError, ConnectionError, ProxyError) as e:
             msgout('网络错误 {}'.format(e), 2)
             raise NetworkError(e)
         else:
