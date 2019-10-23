@@ -1,12 +1,13 @@
 # -*- coding:utf-8 -*-
 # Author: Ivanlon 
 # E-mail: ivanlon@foxmail.com
+import json
 import os
 import time
-import urllib3
-import json
 
 import requests
+import urllib3
+
 from CONFIG import *
 
 # 忽略警告信息等级
@@ -60,7 +61,7 @@ class QbotMessage():
                         with open(img_path, 'wb') as pf:
                             pf.write(res.content)
                     else:
-                        print('**\t[WARNING]获取网络图片失败 {}'.format(res.status_code))
+                        msgout('获取网络图片失败 {}'.format(res.status_code), 2)
                         return 'IMG URL ERROR'
                 else:
                     img_path = content

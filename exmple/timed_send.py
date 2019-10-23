@@ -2,10 +2,11 @@
 # Author: Ivanlon 
 # E-mail: ivanlon@foxmail.com
 
-from time import sleep
 from threading import Thread
+from time import sleep
 
 from util import *
+
 
 class TimedSendMsg():
     """定时发送消息"""
@@ -69,7 +70,7 @@ class TimedSendMsg():
             self.send_msg(content)
             self.cycles += 1
             if self.cycles ==  self.max_cycles:
-                print('**\t[INFO]达最大次数, 退出.')
+                msgout('达最大次数, 退出.')
                 break
             sleep(self.interval)
 

@@ -5,11 +5,11 @@
 import os
 from pickle import load, dump
 
-from requests import get
 from bs4 import BeautifulSoup
+from requests import get
 
-from util import NetworkError, msgout
 from exmple.timed_send import TimedSendMsg
+from util import NetworkError, msgout
 
 
 class WhereIsMyNotice:
@@ -144,7 +144,5 @@ class TimedEISNotice(TimedSendMsg):
         data_dict = {
             '*': data_list
         }
-
-        print('data:',data_dict)
 
         return data_dict
