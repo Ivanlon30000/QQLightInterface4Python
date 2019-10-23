@@ -146,7 +146,6 @@ class TimedEISNotice(TimedSendMsg):
         try:
             data = eis.check()
         except NetworkError as e:
-            msgout('网络错误 {}'.format(e), 2)
             return {}
         else:
             data_list = []
