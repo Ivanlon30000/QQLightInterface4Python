@@ -196,4 +196,4 @@ def msgout(msg, level=1, cmdline=True):
 
 
 ### Abbreviation & Replacement
-send_message = send_message_test
+send_message = send_message_qqlight
