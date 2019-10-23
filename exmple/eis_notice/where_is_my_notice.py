@@ -7,7 +7,7 @@ from pickle import load, dump
 
 from bs4 import BeautifulSoup
 from requests import get
-from urllib3.exceptions import ProxyError, ConnectionError
+from requests.exceptions import ProxyError, ConnectionError
 
 from exmple.timed_send import TimedSendMsg
 from util import NetworkError, msgout
