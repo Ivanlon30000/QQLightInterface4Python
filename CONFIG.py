@@ -7,3 +7,6 @@ REMOTE_IP = 'localhost'
 
 # QQ机器人的QQ号 (暂时没用)
 BOT_ID = ''
+
+# 发送消息间隔 (机器人发送消息过快会被腾讯拦截消息)
+SEND_MESSAGE_INTERVAL = 0.8
