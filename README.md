@@ -45,9 +45,14 @@ msg = msg.boil()
 send_message(qq, 'private', msg)
 ```
 
+### 依赖 Dependencies
++ QQLight
++ Mahua.Framework
++ python-requests
 ### 用法 Usage
 > 待编辑
    
       
       
-# 待续...
+# 待续... 
+# To be continued...
