@@ -3,7 +3,8 @@
 # E-mail: ivanlon@foxmail.com
 
 # QQ机器人所在IP
-REMOTE_IP = 'localhost'
+# REMOTE_IP = 'localhost'
+REMOTE_IP = '122.112.203.148'
 
 # QQ机器人的QQ号 (暂时没用)
 BOT_ID = ''
