@@ -9,7 +9,14 @@ import json
 import requests
 from CONFIG import *
 
+# 忽略警告信息等级
+# -1: 不忽略, 0: 忽略hint, 1:忽略hint 和 info, 2: 只显示error, 3: 全部忽略
+MSGOUT_LEVEL = -1
+
 class FuncUndefinedError(Exception):
+    pass
+
+class NetworkError(Exception):
     pass
 
 class QbotMessage():
@@ -43,13 +50,20 @@ class QbotMessage():
             # 是图片消息
             if content.startswith('http'):
                 # 如果传入的是图片链接
-                res = requests.get(content)
-                if res.status_code == 200:
-                    img_path = os.path.join(self.tmp_dir, 'pic_'+str(int(time.time())))
-                    with open(img_path, 'wb') as pf:
-                        pf.write(res.content)
+                headers = kwargs.get('headers', None)
+                proxies = kwargs.get('proxies', None)
+                trans_src = kwargs.get('trans_src', True)
+                if trans_src:       # 是否转储
+                    res = requests.get(content, headers=headers, proxies=proxies)
+                    if res.status_code == 200:
+                        img_path = os.path.join(self.tmp_dir, 'pic_'+str(int(time.time())))
+                        with open(img_path, 'wb') as pf:
+                            pf.write(res.content)
+                    else:
+                        print('**\t[WARNING]获取网络图片失败 {}'.format(res.status_code))
+                        return 'IMG URL ERROR'
                 else:
-                    return 'IMG URL ERROR'
+                    img_path = content
             elif os.path.exists(content):
                 # 如果传入的是本地图片地址
                 img_path = content
@@ -61,11 +75,11 @@ class QbotMessage():
 
         return 'OK'
 
-    def add_text(self, text):
+    def add_text(self, text, **kwargs):
         return self.add('text', text)
 
-    def add_img(self, img):
-        return self.add('img', img)
+    def add_img(self, img, **kwargs):
+        return self.add('img', img, **kwargs)
 
     def remove(self, index):
         """
@@ -148,3 +162,19 @@ def send_message(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOT
                        body=json.dumps(data).encode('utf8'),
                        headers={"Content-Type": "application/json"}
     )
+
+def msgout(msg, level=1, cmdline=True):
+    """
+    输出消息
+    :param msg:
+    :param level: 消息等级 0: hint, 1:info, 2:warning, 3:error
+    :param cmdline:
+    :return:
+    """
+    if level > MSGOUT_LEVEL:
+        msg_level = ('HINT', 'INFO', 'WARNING', 'ERROR')
+        msg = '**\t[{}] {}'.format(msg_level[level].ljust(7), msg)
+        if cmdline:
+            print(msg)
+        else:
+            pass
