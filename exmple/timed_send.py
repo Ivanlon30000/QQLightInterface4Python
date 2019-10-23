@@ -60,7 +60,7 @@ class TimedSendMsg():
             elif type(msg) in (str, QbotMessage):
                 send_message(qq, 'private', msg)
 
-    def loop(self):
+    def __loop(self):
         """
         循环控制
         :return:
@@ -79,4 +79,4 @@ class TimedSendMsg():
         启动
         :return:
         """
-        self.loop()
+        self.__loop()

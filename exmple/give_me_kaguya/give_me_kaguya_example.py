@@ -9,10 +9,6 @@ from util import *
 
 class TimedSendKaguya(TimedSendMsg):
     def get_msg(self) -> dict:
-        """
-        设置消息内容
-        :return:
-        """
         IMG_DIR = self.kwargs['dir']
         TAR = self.kwargs['tar']
 
@@ -24,10 +20,11 @@ class TimedSendKaguya(TimedSendMsg):
                 msg = QbotMessage()
                 msg.add_text(file)
                 msg.add_img(path)
-                msg = msg.boil()
+
                 msg = {
-                    TAR: msg
+                    TAR: msg.boil()
                 }
+
                 return  msg
 
 if __name__ == '__main__':

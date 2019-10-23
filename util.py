@@ -10,16 +10,26 @@ import urllib3
 
 from CONFIG import *
 
-# 忽略警告信息等级
-# -1: 不忽略, 0: 忽略hint, 1:忽略hint 和 info, 2: 只显示error, 3: 全部忽略
-MSGOUT_LEVEL = -1
+### Constant definition
+MSGOUT_LEVEL = -2       # 忽略警告信息等级
+__MSG_LEVEL = {
+    -1: 'DEBUG',
+    0: 'HINT',
+    1: 'INFO',
+    2: 'WARNING',
+    3: 'ERROR'
+}
 
+
+### Error definition
 class FuncUndefinedError(Exception):
     pass
 
 class NetworkError(Exception):
     pass
 
+
+# Class definition
 class QbotMessage():
     """
     构建一个统一的消息类
@@ -112,7 +122,9 @@ class QbotMessage():
         """
         return ''.join(self.content)
 
-def send_message(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP):
+
+### Function definition
+def send_message_qqlight(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP):
     """
     发送消息
     :param tar_qq:
@@ -164,6 +176,9 @@ def send_message(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOT
                        headers={"Content-Type": "application/json"}
     )
 
+def send_message_test(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP):
+    print(tar_qq, msg_type, content_obj, bot_ip)
+
 def msgout(msg, level=1, cmdline=True):
     """
     输出消息
@@ -173,9 +188,12 @@ def msgout(msg, level=1, cmdline=True):
     :return:
     """
     if level > MSGOUT_LEVEL:
-        msg_level = ('HINT', 'INFO', 'WARNING', 'ERROR')
-        msg = '**\t[{}] {}'.format(msg_level[level].ljust(7), msg)
+        msg = '**\t[{}] {}'.format(__MSG_LEVEL[level].rjust(7), msg)
         if cmdline:
             print(msg)
         else:
             pass
+
+
+### Abbreviation & Replacement
+send_message = send_message_test
