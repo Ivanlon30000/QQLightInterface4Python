@@ -10,7 +10,7 @@ from util import *
 class TimedSendKaguya(TimedSendMsg):
     def get_msg(self) -> dict:
         """
-        每次发送辉夜大小姐的图片
+        设置消息内容
         :return:
         """
         IMG_DIR = self.kwargs['dir']
@@ -31,7 +31,7 @@ class TimedSendKaguya(TimedSendMsg):
                 return  msg
 
 if __name__ == '__main__':
-    qq = '1049107917'
-    dir = r'D:\Pictures\Kaguya-sama'
+    qq = 'xxxxx'
+    dir = r'xxxxx'
     timed_kaguya = TimedSendKaguya(qq, 60, tar=qq, dir=dir)
     timed_kaguya.run()

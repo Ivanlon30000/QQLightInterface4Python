@@ -38,13 +38,16 @@ from util import *
 qq = 'xxxxx'
 text = 'xxxxxx'
 img_path = '***path/url***'
+
 msg = QbotMessage()
 msg.add_text(text)
 msg.add_img(img_path)
 msg = msg.boil()
+
 send_message(qq, 'private', msg)
 ```
 
+另外, `example`里写了一个小例子, 用于QQ机器人定时发送~~辉夜大小姐的图片~~消息
 ### 依赖 Dependencies
 + QQLight
 + Mahua.Framework

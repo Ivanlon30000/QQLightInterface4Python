@@ -7,7 +7,7 @@ import urllib3
 import json
 
 import requests
-from SETTINGS import *
+from CONFIG import *
 
 class FuncUndefinedError(Exception):
     pass
