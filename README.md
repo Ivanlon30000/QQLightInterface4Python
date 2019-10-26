@@ -29,7 +29,7 @@ from util import *
 
 qq = 'xxxxx'
 msg = 'xxxxx'
-send_message(qq, 'private', msg)
+send_private_msg(qq, msg)
 ```
 不仅如此, 还写了一个`QbotMessage`类, 发送文本, 图片等混合消息就不需要自己手动拼接了, 比如:
 ```python
@@ -42,9 +42,8 @@ img_path = '***path/url***'
 msg = QbotMessage()
 msg.add_text(text)
 msg.add_img(img_path)
-msg = msg.boil()
 
-send_message(qq, 'private', msg)
+send_private_msg(qq, msg)
 ```
 
 另外, `example`里写了两个小例子, 分别是
@@ -78,7 +77,7 @@ send_private_msg(qq, qbmsg)
 
 ### 进度
 + 已实现:
-   + 发送消息, 支持文字和图片混排
+   + 发送各种消息(私聊, 群聊等), 支持文字和图片混排
    + ...
 
 + TODO
