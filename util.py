@@ -19,6 +19,7 @@ __MSG_LEVEL = {
     2: 'WARNING',
     3: 'ERROR'
 }
+HTTP_MANAGER = urllib3.PoolManager()
 
 
 ### Error definition
@@ -170,8 +171,7 @@ def send_message_qqlight(tar_qq, msg_type, content_obj: str or QbotMessage, bot_
         '内容': content_obj
     }
 
-    http = urllib3.PoolManager()
-    http.request('POST', url,
+    HTTP_MANAGER.request('POST', url,
                        body=json.dumps(data).encode('utf8'),
                        headers={"Content-Type": "application/json"}
     )
