@@ -129,6 +129,18 @@ class QbotMessage():
 
 
 ### Function definition
+def __post(url, data):
+    """
+    :param url:
+    :param data:
+    :return:
+    """
+    res = HTTP_MANAGER.request('POST', url,
+                       body=json.dumps(data).encode('utf8'),
+                       headers={"Content-Type": "application/json"}
+    )
+    return res
+
 def send_message_qqlight(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP):
     """
     发送消息
@@ -175,10 +187,38 @@ def send_message_qqlight(tar_qq, msg_type, content_obj: str or QbotMessage, bot_
         '内容': content_obj
     }
 
-    HTTP_MANAGER.request('POST', url,
-                       body=json.dumps(data).encode('utf8'),
-                       headers={"Content-Type": "application/json"}
-    )
+    return __post(url, data)
+
+def get_qq_info(tar_qq, bot_ip=REMOTE_IP):
+    """
+    获取qq信息
+    :param tar_qq:
+    :param bot_ip:
+    :return:
+    """
+    # http://127.0.0.1:36524/api/v1/QQLight/Api_GetQQinfo_v2
+    url = 'http://{}:36524/api/v1/QQLight/Api_GetQQinfo_v2'.format(bot_ip)
+    data = {
+        "qQ号": tar_qq
+    }
+
+    return __post(url, data)
+
+def music_163(music_id, bot_ip=REMOTE_IP):
+    url = 'http://{}:36524/api/v1/QQLight/Api_QQMusic'.format(bot_ip)
+    data = {
+        "歌曲ID": music_id
+    }
+
+    return __post(url, data)
+
+def get_cookies(bot_ip=REMOTE_IP):
+    """
+    :param bot_ip:
+    :return:
+    """
+    url = 'http://{}:36524/api/v1/QQLight/Api_GetCookies'.format(bot_ip)
+    return __post(url, None)
 
 def send_message_test(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP):
     print(tar_qq, msg_type, content_obj, bot_ip)
