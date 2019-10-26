@@ -50,7 +50,7 @@ send_message(qq, 'private', msg)
 另外, `example`里写了两个小例子, 分别是
 1. `give_me_kaguya`  
 用QQ机器人定时发送~~辉夜大小姐的图片~~消息
-2. `where_is_,y_notice`  
+2. `where_is_my_notice`  
 定时检查学院官网的新闻, 有新的就发QQ消息提示
 
 ### 依赖 Dependencies
