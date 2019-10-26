@@ -11,7 +11,7 @@ import urllib3
 from CONFIG import *
 
 ### Constant definition
-MSGOUT_LEVEL = -2       # 忽略警告信息等级
+# MSGOUT_LEVEL default -2 in CONFIG.py
 __MSG_LEVEL = {
     -1: 'DEBUG',
     0: 'HINT',
@@ -19,7 +19,12 @@ __MSG_LEVEL = {
     2: 'WARNING',
     3: 'ERROR'
 }
+
+
+### Init
 HTTP_MANAGER = urllib3.PoolManager()
+if not os.path.exists(QMSG_TMP_DIR):
+    os.makedirs(QMSG_TMP_DIR)
 
 
 ### Error definition
@@ -35,10 +40,8 @@ class QbotMessage():
     """
     构建一个统一的消息类
     """
-    def __init__(self, tmp_dir='tmp'):
-        if not os.path.exists(tmp_dir):
-            os.makedirs(tmp_dir)
-        self.tmp_dir = tmp_dir
+    def __init__(self):
+        self.tmp_dir = QMSG_TMP_DIR
         self.content = []
 
     def __add_inner(self, content):
@@ -80,6 +83,7 @@ class QbotMessage():
                 # 如果传入的是本地图片地址
                 img_path = content
             else:
+                msgout('图片格式或地址有误')
                 return 'IMG URL/PATH ERROR'
             self.__add_inner('[QQ:pic={}]'.format(img_path))
         else:
