@@ -59,7 +59,32 @@ send_message(qq, 'private', msg)
 + python-requests
 
 ### 用法 Usage
-> 待编辑
+1. 安装 [QQLight](https://www.52chat.cc)
+2. 安装 [Newbee.Mahua](http://www.newbe.pro/2019/01/25/Newbe.Mahua/Start-With-Mahua-In-V2.0/)
+3. 把`util.py`和`CONFIG.py`放在合适的位置
+4. 使用
+```python
+from util import *
+
+qq = '目标qq号'
+
+qbmsg = QbotMessage()
+qbmsg.add_text("这是前面一段 hi~")
+qbmsg.add_img("http://www.baidu.com/img/bd_logo1.png")
+qbmsg.add_text("这是后面一段")
+
+send_private_msg(qq, qbmsg)
+```
+
+### 进度
++ 已实现:
+   + 发送消息, 支持文字和图片混排
+   + ...
+
++ TODO
+   + 发送链接卡片
+   + 发送音乐卡片
+   + ...
    
 # 待续... 
 # To be continued...

@@ -4,6 +4,7 @@
 import json
 import os
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 import requests
 import urllib3
@@ -25,6 +26,7 @@ __MSG_LEVEL = {
 HTTP_MANAGER = urllib3.PoolManager()
 if not os.path.exists(QMSG_TMP_DIR):
     os.makedirs(QMSG_TMP_DIR)
+MESSAGE_THREAD_POOL = ThreadPoolExecutor(8)
 
 
 ### Error definition
@@ -67,11 +69,11 @@ class QbotMessage():
                 # 如果传入的是图片链接
                 headers = kwargs.get('headers', None)
                 proxies = kwargs.get('proxies', None)
-                trans_src = kwargs.get('trans_src', True)
+                trans_src = kwargs.get('trans_src', False)
                 if trans_src:       # 是否转储
                     res = requests.get(content, headers=headers, proxies=proxies)
                     if res.status_code == 200:
-                        img_path = os.path.join(self.tmp_dir, 'pic_'+str(int(time.time())))
+                        img_path = os.path.abspath(os.path.join(self.tmp_dir, 'pic_'+str(int(time.time()))))
                         with open(img_path, 'wb') as pf:
                             pf.write(res.content)
                     else:
@@ -81,7 +83,7 @@ class QbotMessage():
                     img_path = content
             elif os.path.exists(content):
                 # 如果传入的是本地图片地址
-                img_path = content
+                img_path = os.path.abspath(content)
             else:
                 msgout('图片格式或地址有误')
                 return 'IMG URL/PATH ERROR'
@@ -129,19 +131,17 @@ class QbotMessage():
 
 
 ### Function definition
-def __post(url, data):
-    """
-    :param url:
-    :param data:
-    :return:
-    """
-    res = HTTP_MANAGER.request('POST', url,
-                       body=json.dumps(data).encode('utf8'),
-                       headers={"Content-Type": "application/json"}
-    )
-    return res
+def __block_post(url, data):
+    return HTTP_MANAGER.request('POST', url,
+                         body=json.dumps(data).encode('utf8'),
+                         headers={"Content-Type": "application/json"}
+                         )
 
-def send_message_qqlight(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP):
+def __multi_thread_post(url, data):
+    MESSAGE_THREAD_POOL.submit(__block_post, (url, data))
+
+
+def send_message_qqlight(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP, **kwargs):
     """
     发送消息
     :param tar_qq:
@@ -186,42 +186,29 @@ def send_message_qqlight(tar_qq, msg_type, content_obj: str or QbotMessage, bot_
         'qQ号': pq,
         '内容': content_obj
     }
+    return (__block_post if kwargs.get('block', True) else __multi_thread_post)(url, data)
 
-    return __post(url, data)
+def send_private_msg(tar_qq, content_obj: str or QbotMessage, bot_ip=REMOTE_IP, **kwargs):
+    return send_message(tar_qq, 'private', content_obj, bot_ip, **kwargs)
 
-def get_qq_info(tar_qq, bot_ip=REMOTE_IP):
-    """
-    获取qq信息
-    :param tar_qq:
-    :param bot_ip:
-    :return:
-    """
-    # http://127.0.0.1:36524/api/v1/QQLight/Api_GetQQinfo_v2
-    url = 'http://{}:36524/api/v1/QQLight/Api_GetQQinfo_v2'.format(bot_ip)
-    data = {
-        "qQ号": tar_qq
-    }
+def send_group_msg(tar_qq, content_obj: str or QbotMessage, bot_ip=REMOTE_IP, **kwargs):
+    return send_message(tar_qq, 'group', content_obj, bot_ip, **kwargs)
 
-    return __post(url, data)
+def send_temp_group_msg(tar_qq, content_obj: str or QbotMessage, bot_ip=REMOTE_IP, **kwargs):
+    return send_message(tar_qq, 'temp_group', content_obj, bot_ip, **kwargs)
 
-def music_163(music_id, bot_ip=REMOTE_IP):
-    url = 'http://{}:36524/api/v1/QQLight/Api_QQMusic'.format(bot_ip)
-    data = {
-        "歌曲ID": music_id
-    }
+def send_temp_discuss_msg(tar_qq, content_obj: str or QbotMessage, bot_ip=REMOTE_IP, **kwargs):
+    return send_message(tar_qq, 'temp_discuss', content_obj, bot_ip, **kwargs)
 
-    return __post(url, data)
+def send_discuss_msg(tar_qq, content_obj: str or QbotMessage, bot_ip=REMOTE_IP, **kwargs):
+    return send_message(tar_qq, 'discuss', content_obj, bot_ip, **kwargs)
 
-def get_cookies(bot_ip=REMOTE_IP):
-    """
-    :param bot_ip:
-    :return:
-    """
-    url = 'http://{}:36524/api/v1/QQLight/Api_GetCookies'.format(bot_ip)
-    return __post(url, None)
+def send_temp_private_msg(tar_qq, content_obj: str or QbotMessage, bot_ip=REMOTE_IP, **kwargs):
+    return send_message(tar_qq, 'temp_private', content_obj, bot_ip, **kwargs)
 
-def send_message_test(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP):
-    print(tar_qq, msg_type, content_obj, bot_ip)
+def send_message_test(tar_qq, msg_type, content_obj: str or QbotMessage, bot_ip=REMOTE_IP, **kwargs):
+    print(tar_qq, msg_type, content_obj, bot_ip, kwargs)
+
 
 def msgout(msg, level=1, cmdline=True):
     """
