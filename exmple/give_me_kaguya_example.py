@@ -16,11 +16,12 @@ class TimedSendKaguya(TimedSendMsg):
 
         while True:
             file = random.choice(os.listdir(IMG_DIR))
-            title = re.search(r'title_(.*)_', file)
+            title = re.search(r'title_([^_]*)_', file)
             title = title.group(1) if title is not None else os.path.splitext(file)[0]
             path = os.path.join(IMG_DIR, file)
-            msgout('发送 {}...'.format(file))
             if os.path.isfile(path):
+                msgout('发送 {}...'.format(file))
+
                 msg = QbotMessage()
                 msg.add_text(title)
                 msg.add_img(path)
@@ -32,7 +33,7 @@ class TimedSendKaguya(TimedSendMsg):
                 return  msg
 
 if __name__ == '__main__':
-    qq = 'xxxxxx'
-    dir = r'img_dir'
-    timed_kaguya = TimedSendKaguya(qq, 60, tar=qq, dir=dir)
+    qq = '1049107917'
+    dir = r"D:\Pictures\Kaguya-sama"
+    timed_kaguya = TimedSendKaguya(qq, 5, tar=qq, dir=dir)
     timed_kaguya.run()
