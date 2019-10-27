@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 # Author: Ivanlon 
 # E-mail: ivanlon@foxmail.com
+import os
 
 # QQ机器人所在IP
 REMOTE_IP = 'localhost'
@@ -15,4 +16,5 @@ SEND_MESSAGE_INTERVAL = 0.8
 MSGOUT_LEVEL = -2
 
 # QBotMessage 类的临时文件夹
-QMSG_TMP_DIR = 'tmp'
+QMSG_TMP_DIR = os.path.join(os.path.split(os.path.abspath(__file__))[0], 'tmp')
+print(QMSG_TMP_DIR)
