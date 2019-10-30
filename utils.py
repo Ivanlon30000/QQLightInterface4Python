@@ -2,7 +2,6 @@
 # Author: Ivanlon 
 # E-mail: ivanlon@foxmail.com
 import json
-import os
 import time
 from concurrent.futures import ThreadPoolExecutor
 

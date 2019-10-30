@@ -17,4 +17,3 @@ MSGOUT_LEVEL = -2
 
 # QBotMessage 类的临时文件夹
 QMSG_TMP_DIR = os.path.join(os.path.split(os.path.abspath(__file__))[0], 'tmp')
-print(QMSG_TMP_DIR)
