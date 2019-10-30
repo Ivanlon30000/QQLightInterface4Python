@@ -14,7 +14,7 @@ from utils import NetworkError, msgout
 
 
 class WhereIsMyNotice:
-    def __init__(self, main_url=r'http://eis.whu.edu.cn/index.shtml',
+    def __init__(self, main_url=r'main web url',
                  interval=3600,
                  data_path=os.path.join('.', 'eis_notice_data', 'data.pkl'),
                  parser=None

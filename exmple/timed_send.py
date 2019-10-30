@@ -56,6 +56,7 @@ class TimedSendMsg():
 
             if type(msg) in (list, tuple, set):
                 # 多消息
+                # TODO: 改用线程池, run()函数添加wait()
                 t = Thread(target=self.__send_multi_msg, args=(qq, msg))
                 t.start()
             elif type(msg) in (str, QbotMessage):
