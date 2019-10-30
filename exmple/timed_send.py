@@ -5,7 +5,7 @@
 from threading import Thread
 from time import sleep
 
-from util import *
+from utils import *
 
 
 class TimedSendMsg():
@@ -26,6 +26,7 @@ class TimedSendMsg():
 
     def get_msg(self) -> dict:
         """
+        :param **kwargs:
         :return:
         """
         raise FuncUndefinedError()

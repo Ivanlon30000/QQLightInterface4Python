@@ -10,7 +10,7 @@ from requests import get
 from requests.exceptions import ProxyError, ConnectionError
 
 from exmple.timed_send import TimedSendMsg
-from util import NetworkError, msgout
+from utils import NetworkError, msgout
 
 
 class WhereIsMyNotice:

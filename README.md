@@ -25,7 +25,7 @@ res = http.request('POST',
 
 有了这个接口, 发送qq消息只需要如下即可.  
 ```python
-from util import *
+from utils import *
 
 qq = 'xxxxx'
 msg = 'xxxxx'
@@ -33,7 +33,7 @@ send_private_msg(qq, msg)
 ```
 不仅如此, 还写了一个`QbotMessage`类, 发送文本, 图片等混合消息就不需要自己手动拼接了, 比如:
 ```python
-from util import *
+from utils import *
 
 qq = 'xxxxx'
 text = 'xxxxxx'
@@ -63,7 +63,7 @@ send_private_msg(qq, msg)
 3. 把`util.py`和`CONFIG.py`放在合适的位置
 4. 使用
 ```python
-from util import *
+from utils import *
 
 qq = '目标qq号'
 
