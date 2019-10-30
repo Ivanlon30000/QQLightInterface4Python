@@ -13,7 +13,7 @@ BOT_ID = ''
 SEND_MESSAGE_INTERVAL = 0.8
 
 # 忽略警告信息等级
-MSGOUT_LEVEL = -2
+MSGOUT_LEVEL = -1
 
 # QBotMessage 类的临时文件夹
 QMSG_TMP_DIR = os.path.join(os.path.split(os.path.abspath(__file__))[0], 'tmp')
