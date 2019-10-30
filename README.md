@@ -46,22 +46,22 @@ msg.add_img(img_path)
 send_private_msg(qq, msg)
 ```
 
-另外, `example`里写了两个小例子, 分别是
-1. `give_me_kaguya`  
+另外, `example`里写了一个`timed_send.TimedSendMsg`类, 用于定时发送消息,
+并用其写了几个个小例子:
+1. `give_me_kaguya_example`  
 用QQ机器人定时发送~~辉夜大小姐的图片~~消息
+   + 这个例子中的部分(pixiv相关的部分)功能依赖 `PIL` 和 [`pixivpy`](https://github.com/upbit/pixivpy)
 2. `where_is_my_notice`  
 定时检查学院官网的新闻, 有新的就发QQ消息提示
 
 ### 依赖 Dependencies
-+ QQLight
-+ Mahua.Framework
++ [QQLight](https://www.52chat.cc)
++ [Newbee.Mahua](http://www.newbe.pro/2019/01/25/Newbe.Mahua/Start-With-Mahua-In-V2.0/)
 + python-requests
 
 ### 用法 Usage
-1. 安装 [QQLight](https://www.52chat.cc)
-2. 安装 [Newbee.Mahua](http://www.newbe.pro/2019/01/25/Newbe.Mahua/Start-With-Mahua-In-V2.0/)
-3. 把`util.py`和`CONFIG.py`放在合适的位置
-4. 使用
+1. 把`utils.py`和`CONFIG.py`放在合适的位置
+2. 使用
 ```python
 from utils import *
 
