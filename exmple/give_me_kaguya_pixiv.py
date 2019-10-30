@@ -207,7 +207,7 @@ class TimedSendKayuyaOnPixiv(TimedSendMsg):
         self.max_retries = kwargs.get('max_retries', 3)
 
         pximg = KaguyaOnPixiv(username=pxnm, password=pxpw, access_token=pxat, refresh_token=pxrt, user_id=pxid,
-                              proxies=proxies, **pxkw)
+                              proxies=self.proxies, **pxkw)
         self.pximg = pximg
         super().__init__(tar_qq, interval, **kwargs)
 
