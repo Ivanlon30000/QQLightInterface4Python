@@ -100,7 +100,7 @@ class KaguyaOnPixiv():
                     msgout(f'next_qs: {next_qs}', -1)
                     marks_page = api.user_bookmarks_illust(**next_qs)
 
-            except (PixivError, ProxyError, RemoteDisconnected) as e:
+            except (PixivError, ProxyError, RemoteDisconnected, KeyError, AttributeError) as e:
                 msgout(f'{i + 1} try error: {e}')
 
         msgout(f'Get bookmarks {self.max_retries} tries failed, return old record', 2)
