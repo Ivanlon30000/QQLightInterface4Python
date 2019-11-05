@@ -128,6 +128,9 @@ class QbotMessage():
         """
         return ''.join(self.content)
 
+    def __str__(self):
+        return ''.join([obj for obj in self.content if not (obj.startswith('[QQ:pic=') and obj.endswith(']'))])
+
 
 ### Function definition
 def __block_post(url, data):
