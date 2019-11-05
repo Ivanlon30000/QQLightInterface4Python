@@ -104,6 +104,7 @@ class KaguyaOnPixiv():
                 msgout(f'{i + 1} try error: {e}')
 
         msgout(f'Get bookmarks {self.max_retries} tries failed, return old record', 2)
+        msgout(f'Bookmarks: {self.bookmarks}')
         return self.bookmarks
 
     def is_good_enough(self, work) -> bool:
@@ -274,7 +275,7 @@ class TimedSendKayuyaOnPixiv(TimedSendMsg):
             msg_dict[tar] = msg
 
         msgout('Construct msg successfully')
-        msgout(msg_dict, -1)
+        msgout(str(msg_dict), -1)
 
         return msg_dict
 
