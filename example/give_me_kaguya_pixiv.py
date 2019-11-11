@@ -52,7 +52,6 @@ class KaguyaOnPixiv():
                  access_token=None, refresh_token=None, user_id=None,
                  proxies=None, **kwargs):
         """
-
         :param username:
         :param password:
         :param access_token:
@@ -61,7 +60,9 @@ class KaguyaOnPixiv():
         :param proxies:
         :param kwargs:
         """
-        api = AppPixivAPI(proxies=proxies)
+        # api = AppPixivAPI(proxies=proxies)
+        api = ByPassSniApi(proxies=proxies)
+        api.require_appapi_hosts()
         self.api = api
 
         self.max_retries = kwargs.get('max_retries', 3)
@@ -320,4 +321,5 @@ if __name__ == '__main__':
     #     headers=headers,
     #     proxies=proxies
     # )
+
     pix_kaguya.run()

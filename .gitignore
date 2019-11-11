@@ -1,4 +1,4 @@
 .idea
 venv
-test_data
+test*
 tmp
