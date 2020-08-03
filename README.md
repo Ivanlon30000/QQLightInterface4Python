@@ -1,6 +1,8 @@
 # QQLightInterface4Python
 ## 给QQLight写的python接口
 
+# 受上游影响，Mahua框架已于2020年8月2日封存[（链接）](https://www.newbe.pro/Newbe.Mahua/Newbe-Mahua.Archive/#more)，本项目已失去存在意义
+
 ### 简介 Introduction
 自己在用QQLight机器人的时候, 调用[Mahua](http://www.newbe.pro/2019/01/25/Newbe.Mahua/Start-With-Mahua-In-V2.0/)的HTTP接口, 
 每次都要自己写一长串形如以下的代码, 就很是不爽, 于是决定自己封装一个函数用.  
